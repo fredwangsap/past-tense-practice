@@ -178,14 +178,14 @@ const EX=[
   // 8: Fill in complete sentences
   {title:"Write Full Sentences",sub:"Complete each sentence using the past simple",type:"gap_full",
    items:[
-     {sentence:"I ___ (go) to the cinema yesterday.",ans:"went"},
-     {sentence:"She ___ (dance) at the party last night.",ans:"danced"},
-     {sentence:"We ___ (have) a great time at the zoo.",ans:"had"},
-     {sentence:"He ___ (not/go) to school on Monday.",ans:"didn't go"},
-     {sentence:"They ___ (be) very tired after the game.",ans:"were"},
-     {sentence:"___ you ___ (see) the new film? Yes, I did.",ans:"did see",display:"___ you ___ (see) the new film?"},
-     {sentence:"My dad ___ (cook) dinner for us.",ans:"cooked"},
-     {sentence:"The cat ___ (be) on the sofa all day.",ans:"was"},
+     {pre:"I",post:"(go) to the cinema yesterday.",ans:"went"},
+     {pre:"She",post:"(dance) at the party last night.",ans:"danced"},
+     {pre:"We",post:"(have) a great time at the zoo.",ans:"had"},
+     {pre:"He",post:"(not/go) to school on Monday.",ans:"didn't go",alt:"didnt go"},
+     {pre:"They",post:"(be) very tired after the game.",ans:"were"},
+     {pre:"We",post:"(not/play) football yesterday.",ans:"didn't play",alt:"didnt play"},
+     {pre:"My dad",post:"(cook) dinner for us.",ans:"cooked"},
+     {pre:"The cat",post:"(be) on the sofa all day.",ans:"was"},
    ]},
 ];
 
@@ -350,8 +350,7 @@ function chkDlg(i){
 function renderGapFull(ex,i,el){
   let h=`<div class="instruct">Complete each sentence with the correct <strong>past simple</strong> form. Look at the verb in brackets (  ) for help.</div>`;
   ex.items.forEach((it,qi)=>{
-    const display=it.display||it.sentence;
-    h+=`<div class="gap-sentence">${qi+1}. ${display.replace('___','<input class="gap-input" id="gf${i}-${qi}" data-ans="'+it.ans+'" placeholder="..." autocomplete="off" autocorrect="off" spellcheck="false">').replace(/___/g,'<input class="gap-input" id="gf${i}-${qi}b" data-ans="" placeholder="...">')}</div>`;
+    h+=`<div class="gap-sentence">${qi+1}. ${it.pre} <input class="gap-input" id="gf${i}-${qi}" data-ans="${it.ans}" data-alt="${it.alt||''}" placeholder="..." autocomplete="off" autocorrect="off" spellcheck="false"> ${it.post}</div>`;
   });
   h+=`<button class="btn" onclick="chkGapFull(${i})">✓ Check</button>`;el.innerHTML=h;
 }
@@ -362,8 +361,9 @@ function chkGapFull(i){
     if(!inp)return;
     const val=inp.value.trim().toLowerCase();
     const ans=it.ans.toLowerCase();
-    if(val===ans){inp.classList.add('ok');ok++;}
-    else{inp.classList.add('bad');inp.placeholder=ans;}
+    const alt=(it.alt||'').toLowerCase();
+    if(val===ans || (alt && val===alt)){inp.classList.add('ok');inp.classList.remove('bad');ok++;}
+    else{inp.classList.add('bad');inp.classList.remove('ok');inp.placeholder=ans;}
   });
   if(ok===items.length){setFb(i,'ok','🎉 Excellent! All sentences correct!');markDone(i);}
   else setFb(i,'part',`👍 ${ok}/${items.length} correct. Red boxes show the right answer.`);
