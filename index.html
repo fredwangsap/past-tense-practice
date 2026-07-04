@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⏰ Simple Past Tense — Practice for Kids</title>
+<style>
+:root{--gold:#c9a227;--navy:#1a2e5a;--bg:#fff8f0;--card:#fffdf7;--green:#1e6e30;--red:#922020;--blue:#1a3a8e;--orange:#e65100;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);color:#2d2d2d;min-height:100vh;}
+header{background:linear-gradient(160deg,#4a1a0a,#7a3a1a,#aa5a2a);color:#fff;padding:24px 20px;text-align:center;border-bottom:4px solid var(--gold);}
+header h1{font-size:clamp(1.5em,5vw,2.4em);color:var(--gold);margin-bottom:4px;}
+header p{font-size:.9em;color:rgba(255,255,255,.7);}
+.sticky{position:sticky;top:0;z-index:100;background:#4a1a0a;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.score-badge{background:rgba(201,162,39,.2);border:2px solid var(--gold);border-radius:20px;padding:4px 12px;color:var(--gold);font-weight:700;font-size:.9em;}
+.tabs{display:flex;flex-wrap:wrap;gap:3px;}
+.tab{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;font-size:.72em;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.tab:hover{background:rgba(255,255,255,.2);}
+.tab.active{border-color:#fff;box-shadow:0 0 6px rgba(255,255,255,.5);}
+.tab.done{background:var(--gold);border-color:var(--gold);color:#1a1a2e;}
+main{max-width:860px;margin:12px auto 40px;padding:0 14px;}
+.ex{display:none;background:var(--card);border-radius:14px;border:2px solid rgba(201,162,39,.25);box-shadow:0 4px 20px rgba(0,0,0,.08);margin-top:12px;overflow:hidden;animation:fadeIn .3s ease;}
+.ex.show{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.ex-head{background:linear-gradient(135deg,#4a1a0a,#7a3a1a);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:12px;}
+.ex-num{background:var(--gold);color:#1a1a2e;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;}
+.ex-head h2{font-size:1.05em;color:var(--gold);}
+.ex-head small{font-size:.8em;color:rgba(255,255,255,.6);display:block;}
+.ex-body{padding:18px;}
+.instruct{background:#fff3e0;border-left:4px solid var(--orange);border-radius:0 8px 8px 0;padding:9px 12px;font-size:.88em;color:var(--orange);margin-bottom:14px;line-height:1.5;}
+.fb{margin-top:10px;padding:10px 14px;border-radius:8px;font-weight:600;font-size:.88em;display:none;line-height:1.4;}
+.fb.ok{background:#e8f5e9;color:var(--green);border:2px solid #a5d6a7;display:block;}
+.fb.part{background:#fff8e1;color:#856404;border:2px solid #ffe082;display:block;}
+.fb.bad{background:#ffebee;color:var(--red);border:2px solid #ef9a9a;display:block;}
+.btn{background:linear-gradient(135deg,#4a1a0a,#7a3a1a);color:#fff;border:none;border-radius:22px;padding:9px 22px;font-size:.9em;font-weight:700;cursor:pointer;transition:all .2s;margin-top:10px;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(74,26,10,.3);}
+.nav{display:flex;justify-content:space-between;margin-top:16px;padding-top:12px;border-top:1px solid #eee;}
+.nav-btn{background:transparent;border:2px solid var(--gold);color:#5c3d1a;border-radius:18px;padding:7px 16px;cursor:pointer;font-size:.88em;font-weight:600;transition:all .2s;}
+.nav-btn:hover{background:var(--gold);color:#1a1a2e;}
+.nav-btn.fwd{background:var(--gold);color:#1a1a2e;}
+
+/* Table for verb reference */
+.verb-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.88em;}
+.verb-table th{background:var(--navy);color:#fff;padding:8px 10px;text-align:left;}
+.verb-table td{padding:7px 10px;border-bottom:1px solid #eee;}
+.verb-table tr:nth-child(even){background:#f8f4ee;}
+.verb-table .present{color:var(--blue);font-weight:600;}
+.verb-table .past{color:var(--orange);font-weight:700;}
+.verb-table .type-tag{font-size:.72em;background:#eee;border-radius:10px;padding:2px 7px;color:#666;}
+
+/* MC */
+.mc-item{background:#f9f9f9;border:2px solid #e8e8e8;border-radius:10px;padding:11px 13px;margin-bottom:9px;}
+.mc-item.ok{border-color:#81c784;background:#e8f5e9;}
+.mc-item.bad{border-color:#ef9a9a;background:#ffebee;}
+.mc-q{font-size:.9em;font-weight:600;margin-bottom:7px;line-height:1.4;}
+.mc-opts{display:flex;flex-wrap:wrap;gap:6px;}
+.mc-opt{background:#fff;border:2px solid #ccc;border-radius:18px;padding:4px 13px;cursor:pointer;font-size:.85em;transition:all .2s;}
+.mc-opt:hover{border-color:var(--blue);}
+.mc-opt.sel{background:var(--blue);color:#fff;border-color:var(--blue);}
+.mc-opt.right{background:var(--green);color:#fff;border-color:var(--green);}
+.mc-opt.wrong{background:var(--red);color:#fff;border-color:var(--red);}
+
+/* Gap input */
+.gap-sentence{background:#f9f9f9;border:2px solid #e8e8e8;border-radius:10px;padding:10px 13px;margin-bottom:8px;font-size:.9em;line-height:1.6;}
+.gap-input{border:none;border-bottom:2px solid var(--gold);background:rgba(201,162,39,.08);padding:2px 8px;font-size:.95em;width:110px;text-align:center;outline:none;font-family:inherit;border-radius:3px;}
+.gap-input:focus{border-color:var(--blue);}
+.gap-input.ok{border-color:var(--green);background:#e8f5e9;}
+.gap-input.bad{border-color:var(--red);background:#ffebee;}
+
+/* Match */
+.match-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.match-present{background:#e3f0ff;border:2px solid #90b4e8;border-radius:8px;padding:6px 12px;font-weight:700;color:var(--blue);min-width:80px;text-align:center;}
+.match-arrow{font-size:1.2em;}
+.match-input{border:2px solid #ddd;border-radius:8px;padding:6px 12px;font-size:.9em;width:120px;text-align:center;outline:none;font-family:inherit;transition:border-color .2s;}
+.match-input:focus{border-color:var(--orange);}
+.match-input.ok{border-color:var(--green);background:#e8f5e9;}
+.match-input.bad{border-color:var(--red);background:#ffebee;}
+
+/* Dialogue */
+.dlg-box{background:#f5f5f0;border-radius:10px;padding:14px;margin-bottom:10px;border-left:4px solid var(--orange);}
+.dlg-q{font-weight:700;color:var(--navy);margin-bottom:6px;font-size:.9em;}
+.dlg-opts{display:flex;flex-wrap:wrap;gap:6px;}
+.dlg-opt{background:#fff;border:2px solid #ccc;border-radius:18px;padding:4px 13px;cursor:pointer;font-size:.85em;transition:all .2s;}
+.dlg-opt:hover{border-color:var(--orange);}
+.dlg-opt.sel{background:var(--orange);color:#fff;border-color:var(--orange);}
+.dlg-opt.right{background:var(--green);color:#fff;border-color:var(--green);}
+.dlg-opt.wrong{background:var(--red);color:#fff;border-color:var(--red);}
+
+/* Tip box */
+.tip{background:#e8f5e9;border:2px solid #a5d6a7;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:.85em;line-height:1.5;color:var(--green);}
+.tip strong{color:var(--navy);}
+
+#results{display:none;text-align:center;padding:30px;background:var(--card);border-radius:14px;border:2px solid rgba(201,162,39,.3);margin-top:12px;max-width:860px;margin-left:auto;margin-right:auto;}
+.r-icon{font-size:4em;display:block;margin-bottom:12px;}
+.r-title{font-size:1.8em;color:var(--gold);margin-bottom:8px;}
+.r-score{font-size:1.4em;color:var(--navy);margin-bottom:6px;}
+.r-stars{font-size:2em;margin-bottom:6px;}
+.r-msg{color:#555;margin-bottom:20px;}
+@media(max-width:500px){.match-row{flex-direction:column;align-items:flex-start;}.verb-table{font-size:.8em;}}
+</style>
+</head>
+<body>
+<header>
+<h1>⏰ Simple Past Tense</h1>
+<p>Learn irregular &amp; regular verbs · Questions &amp; answers · Practice for kids</p>
+</header>
+<div class="sticky">
+<div class="score-badge">✅ <span id="sc">0</span>/8</div>
+<div class="tabs" id="tabs"></div>
+</div>
+<main id="main"></main>
+<div id="results">
+<span class="r-icon" id="ri"></span>
+<div class="r-title" id="rt"></div>
+<div class="r-stars" id="rs"></div>
+<div class="r-score" id="rsc"></div>
+<div class="r-msg" id="rm"></div>
+<button class="btn" onclick="location.reload()">🔄 Try Again</button>
+</div>
+
+<script>
+const EX=[
+  // 1: Learn - Irregular verb table
+  {title:"Learn: Irregular Verbs",sub:"Study the past forms of common irregular verbs",type:"learn_irregular"},
+  // 2: Match irregular verbs
+  {title:"Practice: Irregular Verb Forms",sub:"Type the past simple of each verb",type:"type_irregular",
+   items:[
+     {present:"do",past:"did"},{present:"go",past:"went"},{present:"have",past:"had"},
+     {present:"am / is",past:"was"},{present:"are",past:"were"},{present:"see",past:"saw"},
+     {present:"eat",past:"ate"},{present:"come",past:"came"},{present:"make",past:"made"},
+     {present:"get",past:"got"},{present:"find",past:"found"},{present:"take",past:"took"},
+   ]},
+  // 3: Learn - Regular verbs
+  {title:"Learn: Regular Verbs (+ed)",sub:"Most verbs just add -ed to make the past",type:"learn_regular"},
+  // 4: Regular verb practice
+  {title:"Practice: Regular Verbs (+ed)",sub:"Type the past simple form",type:"type_regular",
+   items:[
+     {present:"dance",past:"danced"},{present:"play",past:"played"},{present:"walk",past:"walked"},
+     {present:"watch",past:"watched"},{present:"listen",past:"listened"},{present:"visit",past:"visited"},
+     {present:"cook",past:"cooked"},{present:"open",past:"opened"},{present:"close",past:"closed"},
+     {present:"stop",past:"stopped"},
+   ]},
+  // 5: Choose correct form in sentences
+  {title:"Choose the Correct Past Form",sub:"Pick the right past tense verb",type:"mc",
+   items:[
+     {q:"Yesterday I ___ to school by bus.",opts:["go","went","goed"],ans:"went"},
+     {q:"She ___ a delicious cake last night.",opts:["maked","made","make"],ans:"made"},
+     {q:"We ___ football in the park.",opts:["played","plaied","play"],ans:"played"},
+     {q:"He ___ his homework after dinner.",opts:["do","does","did"],ans:"did"},
+     {q:"They ___ at the beach all day.",opts:["are","was","were"],ans:"were"},
+     {q:"I ___ a really good film on TV.",opts:["saw","see","seed"],ans:"saw"},
+     {q:"My mum ___ pasta for lunch.",opts:["cooked","cook","cooks"],ans:"cooked"},
+     {q:"The children ___ very happy.",opts:["was","were","are"],ans:"were"},
+   ]},
+  // 6: Negative sentences with didn't
+  {title:"Negative: didn't + base verb",sub:"Make negative sentences with didn't",type:"mc_neg",
+   items:[
+     {q:"I ___ go to the party. (negative)",opts:["didn't","don't","wasn't"],ans:"didn't"},
+     {q:"She ___ like the film. (negative)",opts:["didn't","doesn't","wasn't"],ans:"didn't"},
+     {q:"We ___ eat breakfast this morning.",opts:["didn't","don't","weren't"],ans:"didn't"},
+     {q:"He ___ play football yesterday.",opts:["didn't","doesn't","wasn't"],ans:"didn't"},
+     {q:"They ___ come to school on Monday.",opts:["didn't","don't","weren't"],ans:"didn't"},
+     {q:"I ___ happy about the test. (negative of was)",opts:["didn't","wasn't","weren't"],ans:"wasn't"},
+     {q:"They ___ at home last night. (negative of were)",opts:["didn't","wasn't","weren't"],ans:"weren't"},
+   ]},
+  // 7: Questions with Did...?
+  {title:"Questions: Did you...?",sub:"Match questions with correct short answers",type:"dialogue",
+   items:[
+     {q:"Did you go to the beach?",opts:["Yes, I did.","Yes, I do.","Yes, I was."],ans:"Yes, I did."},
+     {q:"Did she eat breakfast?",opts:["No, she doesn't.","No, she didn't.","No, she wasn't."],ans:"No, she didn't."},
+     {q:"Did they play football?",opts:["Yes, they did.","Yes, they do.","Yes, they were."],ans:"Yes, they did."},
+     {q:"Did he go to school?",opts:["No, he don't.","No, he didn't.","No, he wasn't."],ans:"No, he didn't."},
+     {q:"Were you at the park?",opts:["Yes, I did.","Yes, I was.","Yes, I do."],ans:"Yes, I was."},
+     {q:"Was it a good day?",opts:["Yes, it was.","Yes, it did.","Yes, it is."],ans:"Yes, it was."},
+     {q:"Did you have fun?",opts:["Yes, I had.","Yes, I did.","Yes, I was."],ans:"Yes, I did."},
+     {q:"Were they happy?",opts:["No, they didn't.","No, they wasn't.","No, they weren't."],ans:"No, they weren't."},
+   ]},
+  // 8: Fill in complete sentences
+  {title:"Write Full Sentences",sub:"Complete each sentence using the past simple",type:"gap_full",
+   items:[
+     {sentence:"I ___ (go) to the cinema yesterday.",ans:"went"},
+     {sentence:"She ___ (dance) at the party last night.",ans:"danced"},
+     {sentence:"We ___ (have) a great time at the zoo.",ans:"had"},
+     {sentence:"He ___ (not/go) to school on Monday.",ans:"didn't go"},
+     {sentence:"They ___ (be) very tired after the game.",ans:"were"},
+     {sentence:"___ you ___ (see) the new film? Yes, I did.",ans:"did see",display:"___ you ___ (see) the new film?"},
+     {sentence:"My dad ___ (cook) dinner for us.",ans:"cooked"},
+     {sentence:"The cat ___ (be) on the sofa all day.",ans:"was"},
+   ]},
+];
+
+let current=0,done=new Array(EX.length).fill(false);
+
+function init(){
+  buildTabs();
+  const main=document.getElementById('main');main.innerHTML='';
+  EX.forEach((ex,i)=>{
+    const div=document.createElement('section');div.className='ex';div.id='ex-'+i;
+    div.innerHTML=`<div class="ex-head"><div class="ex-num">${i+1}</div><div><h2>${ex.title}</h2><small>${ex.sub}</small></div></div>
+      <div class="ex-body"><div id="c-${i}"></div><div class="fb" id="fb-${i}"></div>
+      <div class="nav"><button class="nav-btn" onclick="go(${i-1})" ${i===0?'disabled':''}>◀ Previous</button><button class="nav-btn fwd" onclick="${i===EX.length-1?'showRes()':'go('+(i+1)+')'}">${i===EX.length-1?'🏆 Results':'Next ▶'}</button></div></div>`;
+    main.appendChild(div);
+  });
+  EX.forEach((ex,i)=>render(ex,i));
+  go(0);
+}
+
+function buildTabs(){const t=document.getElementById('tabs');t.innerHTML='';for(let i=0;i<EX.length;i++){const b=document.createElement('button');b.className='tab'+(i===current?' active':'')+(done[i]?' done':'');b.textContent=i+1;b.onclick=()=>go(i);t.appendChild(b);}}
+function go(n){if(n<0||n>=EX.length)return;document.querySelectorAll('.ex').forEach(e=>e.classList.remove('show'));document.getElementById('ex-'+n).classList.add('show');document.getElementById('results').style.display='none';current=n;buildTabs();window.scrollTo({top:0,behavior:'smooth'});}
+function setFb(i,c,m){const el=document.getElementById('fb-'+i);el.className='fb '+c;el.innerHTML=m;}
+function markDone(i){if(!done[i]){done[i]=true;document.getElementById('sc').textContent=done.filter(Boolean).length;buildTabs();}}
+
+function render(ex,i){
+  const el=document.getElementById('c-'+i);
+  if(ex.type==='learn_irregular')renderLearnIrr(ex,i,el);
+  else if(ex.type==='type_irregular')renderTypeIrr(ex,i,el);
+  else if(ex.type==='learn_regular')renderLearnReg(ex,i,el);
+  else if(ex.type==='type_regular')renderTypeReg(ex,i,el);
+  else if(ex.type==='mc'||ex.type==='mc_neg')renderMC(ex,i,el);
+  else if(ex.type==='dialogue')renderDialogue(ex,i,el);
+  else if(ex.type==='gap_full')renderGapFull(ex,i,el);
+}
+
+// ── LEARN IRREGULAR ──
+function renderLearnIrr(ex,i,el){
+  el.innerHTML=`
+    <div class="instruct">🧠 Study these important irregular verbs. They DON'T follow the normal +ed rule — you need to memorize them!</div>
+    <div class="tip"><strong>💡 Tip:</strong> Irregular verbs change completely in the past. There's no pattern — you just have to learn them by heart!</div>
+    <table class="verb-table">
+      <tr><th>Present</th><th>Past Simple</th><th>Example</th></tr>
+      <tr><td class="present">do</td><td class="past">did</td><td>I <b>did</b> my homework.</td></tr>
+      <tr><td class="present">go</td><td class="past">went</td><td>She <b>went</b> to school.</td></tr>
+      <tr><td class="present">have</td><td class="past">had</td><td>We <b>had</b> pizza for lunch.</td></tr>
+      <tr><td class="present">am / is</td><td class="past">was</td><td>He <b>was</b> happy.</td></tr>
+      <tr><td class="present">are</td><td class="past">were</td><td>They <b>were</b> at the park.</td></tr>
+      <tr><td class="present">see</td><td class="past">saw</td><td>I <b>saw</b> a big dog.</td></tr>
+      <tr><td class="present">eat</td><td class="past">ate</td><td>She <b>ate</b> an apple.</td></tr>
+      <tr><td class="present">come</td><td class="past">came</td><td>He <b>came</b> home late.</td></tr>
+      <tr><td class="present">make</td><td class="past">made</td><td>Mum <b>made</b> a cake.</td></tr>
+      <tr><td class="present">get</td><td class="past">got</td><td>I <b>got</b> a present.</td></tr>
+      <tr><td class="present">find</td><td class="past">found</td><td>They <b>found</b> a treasure.</td></tr>
+      <tr><td class="present">take</td><td class="past">took</td><td>He <b>took</b> a photo.</td></tr>
+      <tr><td class="present">say</td><td class="past">said</td><td>She <b>said</b> hello.</td></tr>
+      <tr><td class="present">tell</td><td class="past">told</td><td>He <b>told</b> me a story.</td></tr>
+      <tr><td class="present">write</td><td class="past">wrote</td><td>I <b>wrote</b> a letter.</td></tr>
+      <tr><td class="present">read</td><td class="past">read</td><td>She <b>read</b> a book. (sounds like "red")</td></tr>
+      <tr><td class="present">buy</td><td class="past">bought</td><td>Dad <b>bought</b> a new car.</td></tr>
+      <tr><td class="present">think</td><td class="past">thought</td><td>I <b>thought</b> it was great.</td></tr>
+      <tr><td class="present">know</td><td class="past">knew</td><td>She <b>knew</b> the answer.</td></tr>
+      <tr><td class="present">run</td><td class="past">ran</td><td>He <b>ran</b> very fast.</td></tr>
+    </table>
+    <button class="btn" onclick="markDone(${i});setFb(${i},'ok','✅ Great! Now test yourself on the next page!')">✓ I've studied these!</button>`;
+}
+
+// ── LEARN REGULAR ──
+function renderLearnReg(ex,i,el){
+  el.innerHTML=`
+    <div class="instruct">🧠 Most verbs are regular — just add <strong>-ed</strong> to make the past simple!</div>
+    <div class="tip"><strong>💡 Rules:</strong><br>
+    • Most verbs: add <b>-ed</b> → play → play<b>ed</b>, walk → walk<b>ed</b><br>
+    • Verbs ending in <b>-e</b>: add <b>-d</b> → dance → danc<b>ed</b>, close → clos<b>ed</b><br>
+    • Verbs ending in consonant + <b>-y</b>: change y to <b>-ied</b> → carry → carr<b>ied</b><br>
+    • Short verbs (CVC): double last letter + <b>-ed</b> → stop → stopp<b>ed</b></div>
+    <table class="verb-table">
+      <tr><th>Present</th><th>Past Simple</th><th>Rule</th></tr>
+      <tr><td class="present">play</td><td class="past">played</td><td><span class="type-tag">+ ed</span></td></tr>
+      <tr><td class="present">walk</td><td class="past">walked</td><td><span class="type-tag">+ ed</span></td></tr>
+      <tr><td class="present">watch</td><td class="past">watched</td><td><span class="type-tag">+ ed</span></td></tr>
+      <tr><td class="present">listen</td><td class="past">listened</td><td><span class="type-tag">+ ed</span></td></tr>
+      <tr><td class="present">cook</td><td class="past">cooked</td><td><span class="type-tag">+ ed</span></td></tr>
+      <tr><td class="present">open</td><td class="past">opened</td><td><span class="type-tag">+ ed</span></td></tr>
+      <tr><td class="present">dance</td><td class="past">danced</td><td><span class="type-tag">+ d (ends in e)</span></td></tr>
+      <tr><td class="present">close</td><td class="past">closed</td><td><span class="type-tag">+ d (ends in e)</span></td></tr>
+      <tr><td class="present">visit</td><td class="past">visited</td><td><span class="type-tag">+ ed</span></td></tr>
+      <tr><td class="present">stop</td><td class="past">stopped</td><td><span class="type-tag">double p + ed</span></td></tr>
+      <tr><td class="present">carry</td><td class="past">carried</td><td><span class="type-tag">y → ied</span></td></tr>
+      <tr><td class="present">study</td><td class="past">studied</td><td><span class="type-tag">y → ied</span></td></tr>
+    </table>
+    <button class="btn" onclick="markDone(${i});setFb(${i},'ok','✅ Great! Now practice adding -ed!')">✓ I've studied these!</button>`;
+}
+
+// ── TYPE IRREGULAR ──
+function renderTypeIrr(ex,i,el){
+  let h=`<div class="instruct">Type the <strong>past simple</strong> form of each irregular verb. No peeking at the table! 😄</div>`;
+  ex.items.forEach((it,qi)=>{
+    h+=`<div class="match-row"><span class="match-present">${it.present}</span><span class="match-arrow">→</span><input class="match-input" id="ti${i}-${qi}" data-ans="${it.past}" placeholder="past form" autocomplete="off" autocorrect="off" spellcheck="false"></div>`;
+  });
+  h+=`<button class="btn" onclick="chkType(${i},${ex.items.length})">✓ Check</button>`;
+  el.innerHTML=h;
+}
+
+// ── TYPE REGULAR ──
+function renderTypeReg(ex,i,el){
+  let h=`<div class="instruct">Type the <strong>past simple</strong> form of each regular verb. Remember the -ed rules!</div>`;
+  ex.items.forEach((it,qi)=>{
+    h+=`<div class="match-row"><span class="match-present">${it.present}</span><span class="match-arrow">→</span><input class="match-input" id="ti${i}-${qi}" data-ans="${it.past}" placeholder="past form" autocomplete="off" autocorrect="off" spellcheck="false"></div>`;
+  });
+  h+=`<button class="btn" onclick="chkType(${i},${ex.items.length})">✓ Check</button>`;
+  el.innerHTML=h;
+}
+
+function chkType(i,total){
+  let ok=0;
+  for(let qi=0;qi<total;qi++){
+    const inp=document.getElementById(`ti${i}-${qi}`);
+    const ans=inp.dataset.ans;
+    const val=inp.value.trim().toLowerCase();
+    if(val===ans){inp.classList.add('ok');ok++;}
+    else{inp.classList.add('bad');inp.placeholder=ans;}
+  }
+  if(ok===total){setFb(i,'ok','🎉 Perfect! All verb forms correct!');markDone(i);}
+  else setFb(i,'part',`👍 ${ok}/${total} correct. Red boxes show the right answer.`);
+}
+
+// ── MULTIPLE CHOICE ──
+function renderMC(ex,i,el){
+  let h=`<div class="instruct">Choose the correct <strong>past simple</strong> form to complete each sentence.</div>`;
+  if(ex.type==='mc_neg') h=`<div class="instruct">Complete negative sentences. Remember:<br>• Action verbs → <strong>didn't</strong> + base verb<br>• be → <strong>wasn't / weren't</strong></div>`;
+  ex.items.forEach((it,qi)=>{
+    h+=`<div class="mc-item" id="mc${i}-${qi}"><div class="mc-q">${qi+1}. ${it.q}</div><div class="mc-opts">${it.opts.map(o=>`<button class="mc-opt" onclick="mcP(${i},${qi},this)">${o}</button>`).join('')}</div></div>`;
+  });
+  h+=`<button class="btn" onclick="chkMC(${i})">✓ Check</button>`;el.innerHTML=h;
+}
+function mcP(i,qi,btn){const r=document.getElementById(`mc${i}-${qi}`);r.querySelectorAll('.mc-opt').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');r.dataset.ans=btn.textContent;}
+function chkMC(i){
+  let ok=0;const items=EX[i].items;
+  items.forEach((it,qi)=>{const r=document.getElementById(`mc${i}-${qi}`);r.querySelectorAll('.mc-opt').forEach(b=>{if(b.textContent===it.ans)b.classList.add('right');if(b.classList.contains('sel')&&b.textContent!==it.ans)b.classList.add('wrong');});if(r.dataset.ans===it.ans)ok++;});
+  if(ok===items.length){setFb(i,'ok',`🎉 Perfect! ${ok}/${items.length}`);markDone(i);}else setFb(i,'part',`👍 ${ok}/${items.length} correct. Green shows the right answer.`);
+}
+
+// ── DIALOGUE ──
+function renderDialogue(ex,i,el){
+  let h=`<div class="instruct">Match each question with the correct <strong>short answer</strong>.<br>
+  💡 <strong>Did you...?</strong> → Yes, I <b>did</b>. / No, I <b>didn't</b>.<br>
+  💡 <strong>Were you...?</strong> → Yes, I <b>was</b>. / No, I <b>wasn't</b>.<br>
+  💡 <strong>Was it...?</strong> → Yes, it <b>was</b>. / No, it <b>wasn't</b>.</div>`;
+  ex.items.forEach((it,qi)=>{
+    h+=`<div class="dlg-box" id="dlg${i}-${qi}"><div class="dlg-q">🗣️ "${it.q}"</div><div class="dlg-opts">${it.opts.map(o=>`<button class="dlg-opt" onclick="dlgP(${i},${qi},this)">${o}</button>`).join('')}</div></div>`;
+  });
+  h+=`<button class="btn" onclick="chkDlg(${i})">✓ Check</button>`;el.innerHTML=h;
+}
+function dlgP(i,qi,btn){const r=document.getElementById(`dlg${i}-${qi}`);r.querySelectorAll('.dlg-opt').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');r.dataset.ans=btn.textContent;}
+function chkDlg(i){
+  let ok=0;const items=EX[i].items;
+  items.forEach((it,qi)=>{const r=document.getElementById(`dlg${i}-${qi}`);r.querySelectorAll('.dlg-opt').forEach(b=>{if(b.textContent===it.ans)b.classList.add('right');if(b.classList.contains('sel')&&b.textContent!==it.ans)b.classList.add('wrong');});if(r.dataset.ans===it.ans)ok++;});
+  if(ok===items.length){setFb(i,'ok','🎉 Perfect! You know your short answers!');markDone(i);}else setFb(i,'part',`👍 ${ok}/${items.length} correct.`);
+}
+
+// ── GAP FULL ──
+function renderGapFull(ex,i,el){
+  let h=`<div class="instruct">Complete each sentence with the correct <strong>past simple</strong> form. Look at the verb in brackets (  ) for help.</div>`;
+  ex.items.forEach((it,qi)=>{
+    const display=it.display||it.sentence;
+    h+=`<div class="gap-sentence">${qi+1}. ${display.replace('___','<input class="gap-input" id="gf${i}-${qi}" data-ans="'+it.ans+'" placeholder="..." autocomplete="off" autocorrect="off" spellcheck="false">').replace(/___/g,'<input class="gap-input" id="gf${i}-${qi}b" data-ans="" placeholder="...">')}</div>`;
+  });
+  h+=`<button class="btn" onclick="chkGapFull(${i})">✓ Check</button>`;el.innerHTML=h;
+}
+function chkGapFull(i){
+  let ok=0;const items=EX[i].items;
+  items.forEach((it,qi)=>{
+    const inp=document.getElementById(`gf${i}-${qi}`);
+    if(!inp)return;
+    const val=inp.value.trim().toLowerCase();
+    const ans=it.ans.toLowerCase();
+    if(val===ans){inp.classList.add('ok');ok++;}
+    else{inp.classList.add('bad');inp.placeholder=ans;}
+  });
+  if(ok===items.length){setFb(i,'ok','🎉 Excellent! All sentences correct!');markDone(i);}
+  else setFb(i,'part',`👍 ${ok}/${items.length} correct. Red boxes show the right answer.`);
+}
+
+// ── RESULTS ──
+function showRes(){
+  document.querySelectorAll('.ex').forEach(e=>e.classList.remove('show'));
+  document.getElementById('results').style.display='block';
+  const sc=done.filter(Boolean).length,p=sc/EX.length;
+  const[icon,title,stars,msg]=p>=.9?['🏆','Past Tense Master!',5,'Amazing!']:p>=.7?['🌟','Great Job!',4,'Well done!']:p>=.5?['😊','Good Effort!',3,'Keep practising!']:p>=.25?['👍','Keep Going!',2,'Try again!']:['💪','Don\'t Give Up!',1,'Practice makes perfect!'];
+  document.getElementById('ri').textContent=icon;document.getElementById('rt').textContent=title;
+  document.getElementById('rs').textContent='⭐'.repeat(stars)+'☆'.repeat(5-stars);
+  document.getElementById('rsc').textContent=`${sc} / ${EX.length} exercises completed`;
+  document.getElementById('rm').textContent=msg;
+}
+
+init();
+</script>
+</body>
+</html>
